@@ -35,7 +35,7 @@ print("Transporter Complete!!")
 
 time_perform = []
 trans_perform, dis_perform, c = [], [], 0
-                                  #100, 200, 300
+                                  #100, 200, 3
 for w_index, work_num in enumerate(task_num):
     ######################## 데이터 생성 함수 #########################
     # 작업목록 스케줄 생성 및 작업 관계 생성
@@ -47,10 +47,17 @@ for w_index, work_num in enumerate(task_num):
                                                                        graph=graph)
 
     ######################## 휴리스틱 알고리즘 #########################
-    # 휴리스틱 1번
+    # 휴리스틱 1번, 트랜스포터 대수 줄이기
+    # 작업량이 적은 트랜스포터 (a) 에 있는 작업을, 작업량이 많은 트랜스포터에 (b)에 할당
+    # 트랜스포터 (b)는 새로운 작업의 공차거리를 최소화할 수 있는 순서에 작업 배치
     h1 = H1(task_work_time, task_empty_time, task_manager.task_list, graph=graph)
-    # 휴리스틱 2번
+
+    # 휴리스틱 2번, 총 이동거리를 최소화
+    # 재배치할 작업 선택 -> 공차 거리가 긴 작업을 비교 탐색하여 선택 (c) or 임의의 작업 선택 (d) -> (d) 효율
+    # 재배치 방법 -> 공차 시간을 비교하여 가장 짧은 공차 시간을 가질 수 있는 위치 배치 (x)
+    # or 작업들 간의 우선순위 기반으로 현재 위치에서의 공차 시간보다 짧은 공차 시간을 가지는 위치에 배치 (y) -> (y) 안정적
     h2 = H2(task_work_time, task_empty_time, task_manager.task_list, empty_speed)
+
     # 휴리스틱 3번
     h3 = H3(task_work_time, task_empty_time, task_manager.task_list)
     #################################################################
@@ -86,10 +93,10 @@ for w_index, work_num in enumerate(task_num):
 
         for i in range(generation):
             ########### 휴리스틱 알고리즘 돌아가는 부분 ###########
-            # pop_random = ga_random.evolvePopulation(pop_random, trans_manager, random_flag=True)
+            pop_random = ga_random.evolvePopulation(pop_random, trans_manager, random_flag=True)
             # pop_base = ga_base.evolvePopulation(pop_base, trans_manager, base_flag=True)
             # pop_distance = ga_distance.evolvePopulation(pop_distance, trans_manager, distance_flag=True)
-            pop_gen = ga_gen.evolvePopulation(pop_gen, trans_manager, gen_flag=True)
+            # pop_gen = ga_gen.evolvePopulation(pop_gen, trans_manager, gen_flag=True)
             # pop_base_distance = ga_bd.evolvePopulation(pop_base_distance, trans_manager, bd_flag=True)
             ##################################################
 
