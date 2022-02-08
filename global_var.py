@@ -10,6 +10,7 @@ n_generations = [100]      # 세대 수
 
 # 트랜스포터와 작업 개수
 transporter_num = 100
+# 100만
 task_num = [100, 200, 300]
 
 # 초기 위치

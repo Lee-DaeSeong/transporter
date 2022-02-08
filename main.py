@@ -1,5 +1,6 @@
 import time
 import copy
+import time
 import numpy as np
 
 # 트랜스 포터 작업 개수, 염색체 세대 수, 트랜스 포터 작업 개수
@@ -35,6 +36,8 @@ print("Transporter Complete!!")
 
 time_perform = []
 trans_perform, dis_perform, c = [], [], 0
+prev=time.time()
+                                # 100개만
                                   #100, 200, 300
 for w_index, work_num in enumerate(task_num):
     ######################## 데이터 생성 함수 #########################
@@ -48,10 +51,21 @@ for w_index, work_num in enumerate(task_num):
 
     ######################## 휴리스틱 알고리즘 #########################
     # 휴리스틱 1번
+    # 트랜스포터의 대수 최소화
+    # 작업량이 적은 트랜스포터 (a)에 있는 작업을 작업량이 많은 트랜스포터 (b)에 할당
+    # 그 후, 트랜스포터 (b)는 새로운 작업의 공차거리를 최소화할 수 있는 순서에 작업 배치
     h1 = H1(task_work_time, task_empty_time, task_manager.task_list, graph=graph)
+    # 새로운 스케줄이 생성 -> 휴리스틱이 돌아가는 것 -> 최종 결과
+
     # 휴리스틱 2번
+    # 총 이동거리 최소화
+    # 재배치할 작업의 선택 -> 공차거리가 긴 작업을 비교 탐색하여 선택 (c) or 임의의 작업 선택 (d, 효율)
+    # 재배치 방법 -> 공차시간을 비교하여 가장 짧은 공차시간을 가질 수 있는 위치 배치 (x)
+    # or 작업들 간의 우선순위 기반 현재 위치에서 공차 시간보다 짧은 공차시간 가지는 위치에 배치 (y, 안정적)
     h2 = H2(task_work_time, task_empty_time, task_manager.task_list, empty_speed)
-    # 휴리스틱 3번
+
+    # 휴리스틱 3번 ??
+    # 유전 -> 어떻게 교차, 교차의 성능이 중요함
     h3 = H3(task_work_time, task_empty_time, task_manager.task_list)
     #################################################################
 
@@ -70,7 +84,7 @@ for w_index, work_num in enumerate(task_num):
     g_trans, gw_t, ge_t, gtotal_time, ge_d = 0, 0, 0, 0, 0
     # bd_trans, bdw_t, bde_t, bdtotal_time, bde_d = 0, 0, 0, 0, 0
 
-    # 최적해 탐색
+    # 최적해 탐색                           #100
     for g_index, generation in enumerate(n_generations):
         pop_base = copy.deepcopy(pop)
         pop_random = copy.deepcopy(pop)
@@ -86,10 +100,10 @@ for w_index, work_num in enumerate(task_num):
 
         for i in range(generation):
             ########### 휴리스틱 알고리즘 돌아가는 부분 ###########
-            # pop_random = ga_random.evolvePopulation(pop_random, trans_manager, random_flag=True)
-            # pop_base = ga_base.evolvePopulation(pop_base, trans_manager, base_flag=True)
-            # pop_distance = ga_distance.evolvePopulation(pop_distance, trans_manager, distance_flag=True)
-            pop_gen = ga_gen.evolvePopulation(pop_gen, trans_manager, gen_flag=True)
+            pop_random = ga_random.evolvePopulation(pop_random, trans_manager, random_flag=True)
+            pop_base = ga_base.evolvePopulation(pop_base, trans_manager, base_flag=True)
+            pop_distance = ga_distance.evolvePopulation(pop_distance, trans_manager, distance_flag=True)
+            #pop_gen = ga_gen.evolvePopulation(pop_gen, trans_manager, gen_flag=True)
             # pop_base_distance = ga_bd.evolvePopulation(pop_base_distance, trans_manager, bd_flag=True)
             ##################################################
 
@@ -135,13 +149,14 @@ for w_index, work_num in enumerate(task_num):
         # time_perform.append([r_time, b_time])
         # trans_perform.append([r_trans, b_trans])
         # dis_perform.append([r_dis, b_dis])
-
+                        #대수,  작업 시간, 공차 시간, 작업 + 공차, 공차 거리
     print("work_num: ", work_num)
     print("random  : ", r_trans, rw_t, re_t, rtotal_time, re_d)
     print("base    : ", b_trans, bw_t, be_t, btotal_time, be_d)
     print("distance: ", d_trans, dw_t, de_t, dtotal_time, de_d)
     # print("b_d     : ", bd_trans, bdw_t, bde_t, bdtotal_time)
     print("")
+print(time.time()-prev)
 # 결과지
 # perform_graph.perform_graph(time_perform, trans_perform, dis_perform)
 
