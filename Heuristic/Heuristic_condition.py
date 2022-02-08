@@ -201,11 +201,8 @@ class H3:
         new_pop = copy.deepcopy(pop)
         new_pop.reset()
 
-        # 무엇을 유전 ?
-        # pop 객체 indexing 불가
-
         for i in range(cross_num):
-            parent_1 = pop[i]
+            parent_1 = pop[i]           # 오류
 
             sub_iter = cross_num - i - 1
             for j in range(sub_iter):
