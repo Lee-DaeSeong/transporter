@@ -47,7 +47,7 @@ def transporter_data(trans_num, trans_manager, graph):
             else:
                 p = 7
             model, size, a_w, w_s, e_s, t_s = trans_df.loc[p]
-            print(size, type(size), type(w_s), type(a_w))
+            # print(size, type(size), type(w_s), type(a_w))
             w_s, e_s, t_s = trans_mpers(w_s, e_s, t_s)
             color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
             trans_manager.add_trans(Transporter(no, size, a_w, w_s, e_s, t_s, graph, color))
@@ -75,7 +75,7 @@ def transporter_data(trans_num, trans_manager, graph):
 
         for i in range(len(trans_df)):
 
-            print("trans_df.loc[]: ", trans_df.loc[i])
+            # print("trans_df.loc[]: ", trans_df.loc[i])
             no, size, a_w, w_s, e_s, t_s = trans_df[['no', 'size', 'available_weight', 'work_speed', 'empty_speed', 'turn_speed']].loc[i]
             color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
             trans_manager.add_trans(Transporter(no, size, a_w, w_s, e_s, t_s, graph, color))
