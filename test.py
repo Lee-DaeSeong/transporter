@@ -92,7 +92,7 @@ for w_index, work_num in enumerate(task_num):
             pop_distance = ga_distance.evolvePopulation(pop_distance, trans_manager, distance_flag=True)
             ##################################################
 
-            print("하는중: {}/{}/{}".format(w_index, g_index, i / generation))
+            print("{}/{}/{}".format(w_index, g_index, i / generation))
 
             ################## 평가함수 ####################
             random_pop = pop_random.getfittest()

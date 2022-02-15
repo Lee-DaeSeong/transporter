@@ -10,7 +10,7 @@ n_generations = [100]      # 세대 수
 
 # 트랜스포터와 작업 개수
 transporter_num = 100
-task_num = [100, 200, 300]
+task_num = [100]
 
 # 초기 위치
 init_position = 57
