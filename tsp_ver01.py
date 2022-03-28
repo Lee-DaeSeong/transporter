@@ -53,7 +53,7 @@ for w_index, work_num in enumerate(task_num):
     ################################################################
 
     # 작업 시간, 작업 간 이동 시간, 공차 시간
-    task_work_time, task_empty_time, empty_speed = task_classification(task_manager.task_list, trans_manager.t_list,
+    task_work_time, task_empty_time, empty_speed = task_classification(task_manager.task_list, trans_manager.transporter_list,
                                                                        graph=graph)
 
     ######################## 휴리스틱 알고리즘 #########################

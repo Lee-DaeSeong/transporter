@@ -62,8 +62,8 @@ class GA:
             try:
                 for task in self.task_m.task_list:
                     # 원래 위치에서 삭제
-                    self.pretask_remove(task, s.trans_m.t_list)
-                    trans_con, rulat_trans = trans_rulat(s.trans_m.t_list, task.b.w)
+                    self.pretask_remove(task, s.trans_m.transporter_list)
+                    trans_con, rulat_trans = trans_rulat(s.trans_m.transporter_list, task.b.w)
                     while True:
                         # 트랜스포터 할당 (룰렛휠)
                         index = rulat_trans.index(max(rulat_trans))
@@ -98,7 +98,7 @@ class GA:
     def distance_(self, pop):
         for s in pop.schedules:
             try:
-                self.h2.change_taskposition(s.trans_m.t_list)
+                self.h2.change_taskposition(s.trans_m.transporter_list)
 
             except:
                 traceback.print_stack()
@@ -119,7 +119,7 @@ class GA:
 
     def print_pop(self, pop):
         for s in pop.schedules:
-            for t in s.trans_m.t_list:
+            for t in s.trans_m.transporter_list:
                 print(t.task)
                 print(t.total_data)
             break

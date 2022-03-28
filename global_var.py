@@ -10,10 +10,11 @@ n_generations = [100]      # 세대 수
 
 # 트랜스포터와 작업 개수
 transporter_num = 100
-task_num = [100]
+task_num = [30]
 
 # 초기 위치
-init_position = 57
+# init_position = 57
+init_position = 0
 
 # H1 관련 변수
 search_num_h1 = 10

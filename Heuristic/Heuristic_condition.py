@@ -212,8 +212,8 @@ class H3:
 
     # 계산
     def calcul_gen(self, p1, p2):
-        p1_trans = p1.trans_m.t_list
-        p2_trans = p2.trans_m.t_list
+        p1_trans = p1.trans_m.transporter_list
+        p2_trans = p2.trans_m.transporter_list
 
         p1_task_et = {}
         p2_task_et = {}

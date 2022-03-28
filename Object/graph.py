@@ -23,10 +23,10 @@ class Graph:
 
         # 도로 넓이 개수
         self.width_list = list(set(self.width_list))
-        
+
         # 도로 넓이에 따라 최소 도착 지점 구하기
         self.min_path()
-    
+
     # 맵 구성요소들 생성
     def create_object(self, s_data, i_data, r_data):
         for no, x, y in s_data:
@@ -40,7 +40,7 @@ class Graph:
             s = self.node(s)
             e = self.node(e)
             self.road_list.append(Road(s, e, w))
-        
+
         # 그래프 거리 적용하기
         self.total_ob = len(self.stock_list) + len(self.inter_list)
         self.graph = np.array([[self.INF for _ in range(self.total_ob)] for _ in range(self.total_ob)])
@@ -66,13 +66,21 @@ class Graph:
                     graph[e][s] = self.INF  # 도로 사용 불가
 
             self.min_path_list.append(self.node_distance(graph=graph))
-    
+
     # 모든 노드들 사이에서 최소 거리 구하기
     def node_distance(self, graph):
         min_path = []
         for i in range(self.total_ob):
             d = self.dijkstra(i, self.total_ob, graph)
             min_path.append(d)
+
+        # 거리, 이전 노드
+        # print('\t', end='')
+        # for i in range(len(min_path)+1):
+        #     print(i, end='\t\t   ')
+        # print()
+        # for i, v in enumerate(min_path):
+        #     print(i, v)
         return min_path
 
     # 다익스트라 알고리즘
@@ -82,7 +90,6 @@ class Graph:
         # d는 memoization을 위한 array이다. d[i]는 정점 K에서 i까지 가는 최소한의 거리가 저장되어 있다.
         d = [[self.INF, None] for _ in range(V)]
         d[K] = [0, K]
-
         while True:
             m = self.INF
             N = -1

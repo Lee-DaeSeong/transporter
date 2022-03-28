@@ -19,7 +19,7 @@ class Schedule:
             for task in self.task_m.task_list:
                 t_list = []
                 # 무게 & 시간 제약 사항
-                for trans in self.trans_m.t_list:
+                for trans in self.trans_m.transporter_list:
                     w_flag = trans.weight_condition(task.weight())
                     t_flag = trans.time_condition(empty_time, work_time, task)
 
@@ -31,20 +31,21 @@ class Schedule:
                     self.trans_m.pop_trans_task()
                     break
 
-                i = random.randint(0, len(t_list)-1)
-                trans = t_list[i]   # 실제 작업 할당될 트랜스포터
+                i = random.randint(0, len(t_list) - 1)
+                trans = t_list[i]  # 실제 작업 할당될 트랜스포터
 
                 # 트랜스포터에 작업 할당
                 trans.undertake_task(empty_time, work_time, task=task, random_flag=True)
 
             if flag:
                 break
-    
+
     # 평가함수
     def getfitness(self, work_time, empty_time, distance_flag=False):
         result = None
         # 사용 트랜스포터, 총 작업시간, 총 공차시간, 총 시간
-        trans_num, w_t, e_t, total_time, empty_distance = self.trans_m.total_trans_data(work_time=work_time, empty_time=empty_time)
+        trans_num, w_t, e_t, total_time, empty_distance, _, _, _ = self.trans_m.total_trans_data(work_time=work_time,
+                                                                                              empty_time=empty_time)
 
         if distance_flag:
             result = 1 / (e_t + trans_num)
@@ -55,6 +56,7 @@ class Schedule:
 
     # 해당 스케줄에서 쓰이는 트랜스포터 대수와 총 시간
     def gettrans_num_time(self, work_time, empty_time):
-        trans_num, w_t, e_t, total_time, empty_distance = self.trans_m.total_trans_data(work_time=work_time, empty_time=empty_time)
-
-        return trans_num, w_t, e_t, total_time, empty_distance
+        trans_num, w_t, e_t, total_time, empty_distance, ret_task_list, ret_trans_no, genestr = self.trans_m.total_trans_data(
+            work_time=work_time, empty_time=empty_time)
+        # print(genestr, end='')
+        return trans_num, w_t, e_t, total_time, empty_distance, ret_task_list, ret_trans_no

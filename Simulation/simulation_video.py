@@ -16,7 +16,7 @@ def map_view(graph, trans_manager):
     size = (width, height)
 
     pop_trans = []
-    for trans in trans_manager.t_list:
+    for trans in trans_manager.transporter_list:
         if trans.total_distance == 0:
             pop_trans.append(trans)
 
@@ -40,7 +40,7 @@ def map_view(graph, trans_manager):
     print(len(frame_array))
 
 def trans_view(time, graph, trans_manager, pop_trans, img):
-    for trans in trans_manager.t_list:
+    for trans in trans_manager.transporter_list:
         gene_string = '{}: wait'.format(trans.no)
         if trans in pop_trans:
             node = None

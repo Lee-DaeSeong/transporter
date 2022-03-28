@@ -43,7 +43,7 @@ for w_index, work_num in enumerate(task_num):
     ################################################################
 
     # 작업 시간, 작업 간 이동 시간, 공차 시간
-    task_work_time, task_empty_time, empty_speed = task_classification(task_manager.task_list, trans_manager.t_list,
+    task_work_time, task_empty_time, empty_speed = task_classification(task_manager.task_list, trans_manager.transporter_list,
                                                                        graph=graph)
 
     ######################## 휴리스틱 알고리즘 #########################
@@ -136,6 +136,7 @@ for w_index, work_num in enumerate(task_num):
         # trans_perform.append([r_trans, b_trans])
         # dis_perform.append([r_dis, b_dis])
 
+                    # 트랜스포터 대수, 작업 시간, 공차 시간, 총 소요 시간, 공차 거리
     print("work_num: ", work_num)
     print("random  : ", r_trans, rw_t, re_t, rtotal_time, re_d)
     print("base    : ", b_trans, bw_t, be_t, btotal_time, be_d)

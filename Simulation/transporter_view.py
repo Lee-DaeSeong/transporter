@@ -9,7 +9,7 @@ def transporter_schedule_view(trans_manager, title):
     fig.set_facecolor('white')  ## 캔버스 색상 설정
     ax = fig.add_subplot()  ## 그림 뼈대(프레임) 생성
 
-    for i, trans in enumerate(trans_manager.t_list):
+    for i, trans in enumerate(trans_manager.transporter_list):
         df = dataframe_create(trans)
         print("df:", df)
         c_i = i % len(e_c)
