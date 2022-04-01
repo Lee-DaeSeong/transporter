@@ -57,6 +57,14 @@ class GA:
 
         return newPopulation
 
+    def test(self, pop):
+        for s in pop.schedules:
+            for task in self.task_m.task_list:
+                # 원래 위치에서 삭제
+                print(task)
+                self.pretask_remove(task, s.trans_m.transporter_list)
+
+
     def base_(self, pop):
         for s in pop.schedules:
             try:
