@@ -30,9 +30,9 @@ def tsp(graph, node_list):
             empty_distance += graph.distance_node(0, empty_prev, init_position)
         return total_distance, empty_distance, task_distance
 
-    def dp(cur, visit, root, ans_candidate):
+    def dp(cur, visit, route, ans_candidate):
         if visit == (1 << N) - 2:
-            ans_candidate.append(root)
+            ans_candidate.append(route)
             return graph.distance_node(0, dic[cur][1], init_position)
 
         if D[cur][visit]:
@@ -44,7 +44,7 @@ def tsp(graph, node_list):
                 continue
             if cur == next:
                 continue
-            ret = dp(next, visit | (1 << next), root + [next], ans_candidate) + graph.distance_node(0, dic[cur][1], dic[next][0])
+            ret = dp(next, visit | (1 << next), route + [next], ans_candidate) + graph.distance_node(0, dic[cur][1], dic[next][0])
             Min = min(Min, ret)
 
         D[cur][visit] = Min
